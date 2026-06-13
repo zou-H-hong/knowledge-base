@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  content   String    @default("")
+  coverUrl  String?
+  type      String    @default("article") // article, audio, video, image
+  category  String    @default("") // 大刘认知课、大刘三人行、好书喜讲、大刘读书会
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  media     Media[]
+}
+
+model Media {
+  id       String @id @default(cuid())
+  url      String
+  fileType String // image, audio, video
+  fileName String
+  postId   String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
