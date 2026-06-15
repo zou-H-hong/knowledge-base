@@ -1,20 +1,12 @@
-const path = require('path');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
   images: { unoptimized: true },
-  generateBuildId: async () => 'build-' + Date.now(),
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
-  webpack: (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
-    return config;
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
-
 module.exports = nextConfig;

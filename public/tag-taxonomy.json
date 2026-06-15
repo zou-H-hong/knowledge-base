@@ -1,0 +1,67 @@
+{
+  "_doc": "标签体系 — 定义所有标签的分类、层级、排序优先级。前端和管理后台共用。",
+  "_usage": "priority 越小越靠前；同一 priority 按 groups 内顺序排列；未收录的标签排在最后",
+
+  "groups": [
+    {
+      "id": "discipline",
+      "label": "学科领域",
+      "priority": 1,
+      "tags": [
+        { "id": "sociology",      "label": "社会学",     "aliases": ["社会"] },
+        { "id": "philosophy",     "label": "哲学",       "aliases": [] },
+        { "id": "psychology",     "label": "心理学",     "aliases": ["心理"] },
+        { "id": "economics",      "label": "经济学",     "aliases": ["经济"] },
+        { "id": "politics",       "label": "政治学",     "aliases": ["政治"] },
+        { "id": "anthropology",   "label": "人类学",     "aliases": [] },
+        { "id": "history",        "label": "历史",       "aliases": [] },
+        { "id": "cognitive",      "label": "认知科学",   "aliases": ["认知"] },
+        { "id": "education",      "label": "教育",       "aliases": [] },
+        { "id": "culture",        "label": "文化研究",   "aliases": ["文化"] },
+        { "id": "rural",          "label": "乡村研究",   "aliases": ["乡村"] }
+      ]
+    },
+    {
+      "id": "source",
+      "label": "来源人物",
+      "priority": 2,
+      "tags": [
+        { "id": "liuqing",        "label": "刘擎",       "aliases": [] },
+        { "id": "xujin",          "label": "许纪霖",     "aliases": [] },
+        { "id": "xiaduanzheng",   "label": "项飙",       "aliases": [] },
+        { "id": "luoguangyuan",   "label": "罗翔",       "aliases": [] },
+        { "id": "chenjiaying",    "label": "陈嘉映",     "aliases": [] },
+        { "id": "wanghui",        "label": "汪晖",       "aliases": [] }
+      ]
+    },
+    {
+      "id": "theme",
+      "label": "主题关键词",
+      "priority": 3,
+      "tags": [
+        { "id": "modernity",      "label": "现代性",     "aliases": ["现代"] },
+        { "id": "identity",       "label": "身份认同",   "aliases": ["身份"] },
+        { "id": "inequality",     "label": "不平等",     "aliases": [] },
+        { "id": "globalization",  "label": "全球化",     "aliases": [] },
+        { "id": "individualism",  "label": "个人主义",   "aliases": [] },
+        { "id": "community",      "label": "共同体",     "aliases": [] },
+        { "id": "power",          "label": "权力",       "aliases": [] },
+        { "id": "knowledge",      "label": "知识",       "aliases": [] },
+        { "id": "technology",     "label": "技术",       "aliases": ["科技"] },
+        { "id": "urbanization",   "label": "城镇化",     "aliases": ["城市化"] }
+      ]
+    },
+    {
+      "id": "type",
+      "label": "内容类型",
+      "priority": 4,
+      "tags": [
+        { "id": "course",         "label": "课程",       "aliases": [] },
+        { "id": "dialogue",       "label": "对谈",       "aliases": ["对话"] },
+        { "id": "book",           "label": "书评",       "aliases": ["读书"] },
+        { "id": "lecture",        "label": "讲座",       "aliases": [] },
+        { "id": "review",         "label": "述评",       "aliases": [] }
+      ]
+    }
+  ]
+}

@@ -21,11 +21,10 @@ async function main() {
   // Ensure output directory exists
   fs.mkdirSync(path.join(outDir, "posts"), { recursive: true });
 
-  // Fetch all posts with media and comment counts
+  // Fetch all posts with media
   const posts = await prisma.post.findMany({
     include: {
       media: true,
-      _count: { select: { comments: true } },
     },
     orderBy: { createdAt: "desc" },
   });
@@ -38,8 +37,11 @@ async function main() {
     type: p.type,
     category: p.category,
     coverUrl: normalizeUrl(p.coverUrl),
+    coverImage: normalizeUrl(p.coverImage),
+    images: p.images || "",
+    mediaUrl: normalizeUrl(p.mediaUrl),
+    tags: p.tags || "",
     createdAt: p.createdAt.toISOString(),
-    commentCount: p._count.comments,
   }));
   fs.writeFileSync(
     path.join(outDir, "posts.json"),
@@ -56,6 +58,10 @@ async function main() {
       type: post.type,
       category: post.category,
       coverUrl: normalizeUrl(post.coverUrl),
+      coverImage: normalizeUrl(post.coverImage),
+      images: post.images || "",
+      mediaUrl: normalizeUrl(post.mediaUrl),
+      tags: post.tags || "",
       createdAt: post.createdAt.toISOString(),
       media: post.media.map((m) => ({
         id: m.id,
@@ -70,6 +76,9 @@ async function main() {
     );
   }
   console.log(`Exported ${posts.length} individual post files`);
+
+  // Note: uploads are copied to out/ by the build script AFTER build completes
+  // (out/ is deleted during build, so copying here would be lost)
 
   await prisma.$disconnect();
 }

@@ -15,13 +15,26 @@ export async function generateStaticParams() {
 }
 
 async function getPost(id: string): Promise<Post | null> {
-  // Try static JSON file first (works in both dev and static modes)
+  // In dev mode, always query database for fresh data
   try {
-    const filePath = path.join(process.cwd(), "public", "data", "posts", `${id}.json`);
-    const data = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(data);
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: { media: true },
+    });
+    await prisma.$disconnect();
+    if (!post) throw new Error("not found");
+    return post as unknown as Post;
   } catch {
-    return null;
+    // Fallback: static JSON file (for static export)
+    try {
+      const filePath = path.join(process.cwd(), "public", "data", "posts", `${id}.json`);
+      const data = fs.readFileSync(filePath, "utf-8");
+      return JSON.parse(data);
+    } catch {
+      return null;
+    }
   }
 }
 

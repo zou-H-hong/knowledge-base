@@ -128,7 +128,7 @@ code, pre {
   margin-bottom: 1.5rem;
   line-height: 1.95;
   color: var(--text-secondary);
-  font-weight: 400;
+  font-weight: 350;
 }
 
 .prose strong {
@@ -156,7 +156,7 @@ code, pre {
 .prose li {
   margin-bottom: 0.5rem;
   line-height: 1.9;
-  font-weight: 400;
+  font-weight: 350;
 }
 
 .prose blockquote {
@@ -168,7 +168,7 @@ code, pre {
   color: var(--text-secondary);
   font-style: normal;
   line-height: 1.85;
-  font-weight: 400;
+  font-weight: 350;
 }
 
 .prose code {

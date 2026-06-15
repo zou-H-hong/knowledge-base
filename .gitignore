@@ -5,3 +5,21 @@ dev.db
 dev.db-journal
 .env
 *.tsbuildinfo
+
+# 管理后台（仅本地使用）
+src/app/admin/
+src/app/api/
+src/lib/auth.ts
+src/lib/prisma.ts
+prisma/
+
+# 构建临时目录
+_build_temp/
+
+# 管理脚本（仅本地使用）
+start-admin.ps1
+publish.ps1
+preview.ps1
+启动管理后台.bat
+发布更新.bat
+仅预览网站.bat
