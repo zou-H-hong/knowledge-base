@@ -105,7 +105,7 @@ export default function PostDetailInner({ postId, initialPost }: PostDetailInner
   return (
     <>
     <TableOfContents content={post.content} />
-    <div className="post-detail max-w-[1400px] px-6 lg:pl-8 lg:pr-16 pt-8 pb-20" style={{ marginLeft: "3%", marginRight: "auto" }}>
+    <div className="post-detail max-w-[1400px] px-3 sm:px-6 lg:pl-8 lg:pr-16 pt-8 pb-20" style={{ marginLeft: "auto", marginRight: "auto" }}>
       {/* 顶部：品牌 + 返回 */}
       <div className="mb-10 animate-fade-in">
         <div className="flex items-center gap-3 mb-8">
@@ -176,18 +176,24 @@ export default function PostDetailInner({ postId, initialPost }: PostDetailInner
         </div>
       </div>
 
-      {/* 双栏：独立滚动 */}
-      <div className="flex flex-col lg:flex-row gap-10 lg:gap-14" style={{ height: "calc(100vh - 80px)" }}>
+      {/* 移动端：单栏，桌面端：双栏 */}
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-14">
         {/* 左栏：图片和视频 — 独立滚动 */}
-        <div className="lg:w-[38%] min-w-0 overflow-y-auto" style={{ maxHeight: "calc(100vh - 80px)", scrollbarWidth: "thin", scrollbarColor: "rgba(0,0,0,0.1) transparent" }}>
+        <div className="lg:w-[38%] min-w-0 lg:sticky lg:top-16 lg:h-[calc(100vh-5rem)] lg:overflow-y-auto" style={{ scrollbarWidth: "thin", scrollbarColor: "#ccc transparent" }}>
           <div
-            className="glass-card media-block p-6 animate-section"
+            className="glass-card media-block p-3 sm:p-6 animate-section"
             tabIndex={-1}
           >
             {allImageUrls.length > 0 ? (
               <div className="space-y-5">
+                {/* 移动端只展示第一张，桌面端全部 */}
+                {allImageUrls.slice(0, 1).map((url, idx) => (
+                  <div key={idx} className="rounded-xl overflow-hidden lg:hidden">
+                    <ImageViewer src={url} alt={`${post.title} - ${idx + 1}`} className="w-full" />
+                  </div>
+                ))}
                 {allImageUrls.map((url, idx) => (
-                  <div key={idx} className="rounded-xl overflow-hidden">
+                  <div key={`desktop-${idx}`} className="rounded-xl overflow-hidden hidden lg:block">
                     <ImageViewer src={url} alt={`${post.title} - ${idx + 1}`} className="w-full" />
                   </div>
                 ))}
@@ -207,8 +213,8 @@ export default function PostDetailInner({ postId, initialPost }: PostDetailInner
           </div>
         </div>
 
-        {/* 右栏：文稿和音频 — 独立滚动 */}
-        <div className="lg:w-[62%] min-w-0 overflow-y-auto" style={{ maxHeight: "calc(100vh - 80px)", scrollbarWidth: "thin", scrollbarColor: "rgba(0,0,0,0.1) transparent" }}>
+        {/* 右栏：文稿和音频 */}
+        <div className="lg:w-[62%] min-w-0">
           {/* 音频 */}
           {audios.length > 0 && (
             <div className="mb-10 space-y-4">
@@ -219,7 +225,7 @@ export default function PostDetailInner({ postId, initialPost }: PostDetailInner
           )}
 
           {/* 文章内容 — 毛玻璃卡片包裹 */}
-          <div className="glass-card p-8 lg:p-10 mb-8 animate-section" tabIndex={-1}>
+          <div className="glass-card p-4 sm:p-8 lg:p-10 mb-8 animate-section" tabIndex={-1}>
             <article className="prose max-w-none">
               <ReactMarkdown components={markdownComponents}>
                 {post.content}
